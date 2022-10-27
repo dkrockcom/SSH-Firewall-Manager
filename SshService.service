@@ -1,0 +1,22 @@
+[Unit]
+Description = SSH Service
+After       = network.target
+
+[Service]
+WorkingDirectory=/SshService
+ExecStart=/SshService/SshService --urls=http://*:27000
+ExecStop=/bin/kill -INT 
+ExecReload=/bin/kill -TERM 
+
+StandardOutput=null
+StandardError=null
+
+# In case if it gets stopped, restart it immediately
+Restart     = always
+
+Type        = simple
+
+[Install]
+# multi-user.target corresponds to run level 3
+# roughtly meaning wanted by system start
+WantedBy    = multi-user.target
